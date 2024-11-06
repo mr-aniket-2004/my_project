@@ -23,6 +23,7 @@ urlpatterns = [
    path("/course/mycourse/temp/learingpage3/<slug>",views.chapter_video3, name='chapter_video3'),
    path("/course/mycourse/temp/learingpage4/<slug>",views.chapter_video4, name='chapter_video4'),
    path("/course/mycourse/temp/learingpage5/<slug>",views.chapter_video5, name='chapter_video5'),
+   path("/course/mycourse/temp/quiz/<slug>",views.quizpage, name='quiz'),
    path("/upgrade",views.upgrade,name="upgrade"),
    
 #    path("log",views.student_logout,name='log'),

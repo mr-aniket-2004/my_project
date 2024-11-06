@@ -323,24 +323,16 @@
                 <div class="quiz">
                     <h2>Quiz</h2>
                     <ul>
+                        
+                            {% for i in new %}
                         <li>
-                            <div id="play"><a href=""><i class='bx bx-detail' style="color: red;"></i></a></div>
+                            <div id="play"><a href="/student/course/mycourse/temp/quiz/{{i.new_slug}}"><i class='bx bx-detail' style="color: red;"></i></a></div>
                             <div>
                                 <p>Quiz</p>
                             </div>
                         </li>
-                    </ul>
-                </div>
-                <div class="certificate">
-                    <h2>Certificate</h2>
-                    <ul>
-                        <li>
-                            <div id="play" style="color: red;"><a href=""><i class='bx bx-certification'
-                                        style="color: red;"></i></a></div>
-                            <div>
-                                <p>Claim your course Certificate</p>
-                            </div>
-                        </li>
+                          
+                        {% endfor %}
                     </ul>
                 </div>
             </div>

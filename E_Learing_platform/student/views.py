@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
-from home.models import sign_up_table ,course,notification
+from home.models import sign_up_table ,course,notification,QuesModel,completeCourse
 from student.models import usercourse,helpquary
 
 # Create your views here.
@@ -84,6 +84,71 @@ def chapter_video4(request,slug):
         "main":main
     }
     return render(request,"chapers/chapter4.html",data)
+
+
+def quizpage(request,slug):
+    if request.method == 'POST':
+        print(request.POST)
+        sub = course.objects.get(new_slug=slug)
+        course_user = User.objects.get(id=request.user.id)
+        # main_core.is_complete= True if request.POST.get('is_true') == 'true' else False
+        
+        questions=QuesModel.objects.filter(sub__new_slug=slug)
+        score=0
+        wrong=0
+        correct=0
+        total=0
+        for q in questions:
+            total+=1
+            print(request.POST.get(q.question))
+            print(q.ans)
+            print()
+            if q.ans ==  request.POST.get(q.question):
+                score+=1
+                correct+=1
+            else:
+                wrong+=1
+        # percent = score/(total*10) *100
+
+        if score>=1:
+            flag=1
+            status = "You sccussfully complate exam!"
+        else:
+            flag=0
+            status ="You was failed.."
+
+        print(flag)
+        if flag == 1:
+            temp =completeCourse(use=course_user,sub=sub,is_complete=True)
+            temp.save()
+        
+        
+    
+        cname = course.objects.get(new_slug=slug)
+
+        context = {
+            'score':score,
+            'time': request.POST.get('timer'),
+            'correct':correct,
+            'wrong':wrong,
+            # 'percent':percent,
+            'total':total,
+            'status':status,
+            'flag':flag,
+            'cname':cname
+        }
+        return render(request,'new_quiz.html',context)
+    else:
+        questions=QuesModel.objects.filter(sub__new_slug=slug)
+        new = course.objects.filter(new_slug=slug)
+        context = {
+            'questions':questions,
+            'new':new
+        }
+        return render(request,'new_quiz.html',context)
+
+
+
 
 def checkout(request,slug):
     sub = course.objects.get(new_slug=slug)
@@ -176,8 +241,13 @@ def profile(request):
 def mycourse(request):
     new = course.objects.all()
     data = usercourse.objects.filter(user=request.user)
+    main = completeCourse.objects.filter(use=request.user)
+    print(main)
+    print(new)
+    print(data)
     context ={
-        "data":data
+        "data":data,
+        "main":main
     }
     return render(request,"mycourse.html",context)
 

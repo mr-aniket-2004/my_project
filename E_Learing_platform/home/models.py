@@ -37,7 +37,7 @@ class course(models.Model):
     chapter5 = models.CharField(max_length=500,null=True)
     video5= models.FileField(upload_to='lecture_video/',null=True,blank=True)
     new_slug = AutoSlugField(populate_from='product_name',unique=True,null=True,default=None)
-    
+    # is_complete = models.BooleanField(default=False)
     def __str__(self) -> str:
         return self.product_name
 
@@ -47,8 +47,26 @@ class course(models.Model):
 # class course_info(models.Model):
 #     main_id= models.ForeignKey()
 
+class QuesModel(models.Model):
+    sub = models.ForeignKey(course,on_delete=models.CASCADE)
+    question = models.CharField(max_length=200,null=True)
+    op1 = models.CharField(max_length=200,null=True)
+    op2 = models.CharField(max_length=200,null=True)
+    op3 = models.CharField(max_length=200,null=True)
+    op4 = models.CharField(max_length=200,null=True)
+    ans = models.CharField(max_length=200,null=True)
+    
+    def __str__(self):
+        return self.question
 
 
+class completeCourse(models.Model):
+    use = models.ForeignKey(User,on_delete=models.CASCADE)
+    sub = models.ForeignKey(course,on_delete=models.CASCADE)
+    is_complete = models.BooleanField(default=False)
+    date = models.DateField(auto_now=True)
+    def __str__(self):
+        return self.use.first_name
 
 class sign_up_table (models.Model):
     main = models.OneToOneField(User,on_delete= models.CASCADE)

@@ -15,8 +15,8 @@ class student_couser(models.Model):
 class usercourse(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     sub = models.ForeignKey(course,on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
-
+    date = models.DateTimeField(auto_now=True)
+    
     def __str__(self) -> str:
         return self.user.first_name+""+ self.sub.product_name
     

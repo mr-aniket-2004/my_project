@@ -425,7 +425,7 @@
             color: var(--text-color);
         }
 
-        .enroll-course{
+        .enroll-course {
             border: 1px solid var(--border-color);
             box-shadow: 0 0 15px var(--border-color);
             margin: 50px 0px;
@@ -460,11 +460,13 @@
             justify-content: center;
             align-items: center;
         }
-        .course-img img{
+
+        .course-img img {
             width: 100%;
             border-radius: 9px;
         }
-        .course-status button{
+
+        .course-status button {
             width: 100px;
             height: 30px;
             background-color: #0E4BF1;
@@ -473,7 +475,8 @@
             color: var(--text-color);
             font-weight: 600;
         }
-        #btn{
+
+        #btn {
             background-color: green;
         }
 
@@ -703,7 +706,9 @@
                             <img src="{{i.sub.img.url}}" alt="">
                         </div>
                         <div class="course-name">
-                            <h2><a href="mycourse/temp/{{i.sub.new_slug}}" style="text-decoration: none;color:var(--text-color);">{{i.sub.product_name}}</a></h2>
+                            <h2><a href="mycourse/temp/{{i.sub.new_slug}}"
+                                    style="text-decoration: none;color:var(--text-color);">{{i.sub.product_name}}</a>
+                            </h2>
                             <P>Gurukul E-learning Academy</P>
                         </div>
                         <div class="course-start-date">
@@ -712,38 +717,48 @@
                         </div>
                         <div class="course-status" style="text-align: center;">
                             <p>Status</p>
+                            {% for j in main %}
+
+                            {% endfor %}
+                            {% if j.is_complete is True %}
+                            <button style="background-color: green;">Completed</button>
+                            {% else %}
                             <button>Incomplete</button>
+                            {% endif %}
                         </div>
                     </div>
                     {% endfor %}
-                    
-                    
+
+
                 </div>
             </div>
 
 
             <div class="enroll-course">
                 <h1>Completed Courses</h1>
+                {% for i in main %}
+
                 <div class="course-card">
                     <div class="course-box">
                         <div class="course-img">
-                            <img src="/static/dsa-log.jpg" alt="">
+                            <img src="{{i.sub.img.url}}" alt="">
                         </div>
                         <div class="course-name">
-                            <h2>DATA STRUCTURE AND ALGORITHM</h2>
+                            <h2>{{i.sub.product_name}}</h2>
                             <P>Gurukul E-learning Academy</P>
                         </div>
                         <div class="course-start-date">
-                            <p>Start Date</p>
-                            <h5>30-09-2024</h5>
+                            <p>End Date</p>
+                            <h5>{{i.date}}</h5>
                         </div>
                         <div class="course-status" style="text-align: center;">
                             <p>Status</p>
                             <button id="btn">Completed</button>
                         </div>
                     </div>
-                    
+
                 </div>
+                {% endfor %}
             </div>
         </div>
 
