@@ -444,11 +444,39 @@
             color: var(--text-color);
         }
 
-        .tbox img {
+        #enroll {
+            /* border: 1px solid red; */
+            padding: 10px 20px;
             width: 600px;
             height: 300px;
         }
 
+        #enroll ul li {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            list-style: none;
+            margin: 10px 0px;
+        }
+
+        .ecard {
+            /* border: 2px solid green; */
+            display: flex;
+            /* justify-content: space-e; */
+            align-items: center;
+            padding: 10px;
+        }
+
+        .ecard img {
+            width: 200px;
+            height: 80px;
+            border-radius: 12px;
+        }
+
+        .ecard a {
+            margin-left: 20px;
+            color: var(--text-color);
+            text-decoration: none;
+        }
 
         @media (max-width:1300px) {
             .box {
@@ -674,17 +702,17 @@
                     <div class="box box1">
                         <i class='bx bxs-food-menu'></i>
                         <span class="text">Enrolled Courses</span>
-                        <span class="number">10</span>
+                        <span class="number">{{pending}}</span>
                     </div>
                     <div class="box box2">
                         <i class='bx bxs-edit-alt'></i>
                         <span class="text">Assignments</span>
-                        <span class="number">2</span>
+                        <span class="number">0</span>
                     </div>
                     <div class="box box3">
                         <i class='bx bx-credit-card-front'></i>
                         <span class="text">Completed Courses</span>
-                        <span class="number">1</span>
+                        <span class="number">{{main}}</span>
                     </div>
                 </div>
             </div>
@@ -694,8 +722,24 @@
 
         <div class="table">
             <div class="tbox">
-                <h1 style="padding-left: 10px;">Statistics</h1>
-                <span><img src="../static/BARIMG.png" alt=""></span>
+                <h1 style="padding-left: 10px;">Enrolled Courses :</h1>
+                <!-- <span><img src="../static/BARIMG.png" alt=""></span> -->
+                <marquee id="enroll" behavior="" scrollamount="5" direction="UP">
+                    <ul>
+                        {% for i in maindata %}
+
+                        <li>
+                            <a href="/student/course/mycourse">
+                                <div class="ecard">
+                                    <img src="{{i.sub.img.url}}" alt="">
+                                    <a href="/student/course/mycourse">{{i.sub.product_name}}</a>
+                                </div>
+                            </a>
+                        </li>
+                        {% endfor %}
+
+                    </ul>
+                </marquee>
             </div>
             <div class="tbox">
                 <h1 style="padding-left: 10px;">Notifications :</h1>

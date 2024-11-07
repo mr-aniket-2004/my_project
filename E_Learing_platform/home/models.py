@@ -66,7 +66,7 @@ class completeCourse(models.Model):
     is_complete = models.BooleanField(default=False)
     date = models.DateField(auto_now=True)
     def __str__(self):
-        return self.use.first_name
+        return self.use.first_name +""+self.sub.product_name
 
 class sign_up_table (models.Model):
     main = models.OneToOneField(User,on_delete= models.CASCADE)

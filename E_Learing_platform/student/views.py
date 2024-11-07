@@ -3,13 +3,26 @@ from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from home.models import sign_up_table ,course,notification,QuesModel,completeCourse
 from student.models import usercourse,helpquary
+from django.db.models import Q
+
 
 # Create your views here.
 
 def index1(request):
     new = notification.objects.all()
+    main1 = completeCourse.objects.filter(use=request.user)
+    data1 = usercourse.objects.filter(user=request.user)
+    main = completeCourse.objects.filter(use=request.user).count()
+    data = usercourse.objects.filter(user=request.user).count()
+    pending = data1.exclude(sub_id__in =main1.values('sub_id')).count()
+    maindata = data1.exclude(sub_id__in =main1.values('sub_id'))
+    print(pending)
     context ={
-        "new":new
+        "new":new,
+        "data":data,
+        "main":main,
+        "pending":pending,
+        "maindata":maindata
     }
     return render(request,"studentdashboard.html",context)
 
@@ -239,15 +252,25 @@ def profile(request):
 
 
 def mycourse(request):
+   
+
     new = course.objects.all()
-    data = usercourse.objects.filter(user=request.user)
     main = completeCourse.objects.filter(use=request.user)
-    print(main)
-    print(new)
-    print(data)
+    data = usercourse.objects.filter(user=request.user)
+    pending = data.exclude(sub_id__in =main.values('sub_id'))
+
+    print(pending)
+
+
+    # ccourse = usercourse.objects.get()
+    # print(ccourse)
+    # print(data)
+    # print(main)
+    # a=[]
     context ={
         "data":data,
-        "main":main
+        "main":main,
+        "pending":pending
     }
     return render(request,"mycourse.html",context)
 

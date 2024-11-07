@@ -700,7 +700,7 @@
             <div class="enroll-course">
                 <h1>Enrolled Courses</h1>
                 <div class="course-card">
-                    {% for i in data %}
+                    {% for i in pending %}
                     <div class="course-box">
                         <div class="course-img">
                             <img src="{{i.sub.img.url}}" alt="">
@@ -717,14 +717,7 @@
                         </div>
                         <div class="course-status" style="text-align: center;">
                             <p>Status</p>
-                            {% for j in main %}
-
-                            {% endfor %}
-                            {% if j.is_complete is True %}
-                            <button style="background-color: green;">Completed</button>
-                            {% else %}
                             <button>Incomplete</button>
-                            {% endif %}
                         </div>
                     </div>
                     {% endfor %}
